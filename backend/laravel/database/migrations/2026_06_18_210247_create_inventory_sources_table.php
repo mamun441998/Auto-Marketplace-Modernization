@@ -12,8 +12,59 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_sources', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+
+        /*
+        |-----------------------------------------------------
+        | Identity
+        |---------------------------------------------------------
+        */
+
+        $table->id();
+        $table->uuid('uuid')->unique();
+
+
+        /*
+        |-----------------------------------------------------
+        | Inventory Source Information
+        |---------------------------------------------------------
+        */
+        $table->string('name');
+        $table->string('slug')->unique();
+        $table->string('type');
+
+        /*
+        |-----------------------------------------------------
+        | API Configuration
+        |---------------------------------------------------------
+        */
+        $table->string('base_url')->nullable();
+        $table->string('api_key')->nullable();
+        $table->string('api_secret')->nullable();
+
+        /*
+        |-----------------------------------------------------
+        | Sync Information
+        |---------------------------------------------------------  
+        */
+        $table->timestamp('last_synced_at')->nullable();
+        $table->integer('sync_interval')->default(60);
+
+        /*
+        |-----------------------------------------------------
+        | Status
+        |---------------------------------------------------------
+        */
+        $table->boolean('is_active')->default(true);
+
+
+
+        /*
+        |-----------------------------------------------------  
+        |Status and Metadata
+        |---------------------------------------------------------
+        */
+        $table->timestamps();
+        $table->softDeletes();
         });
     }
 

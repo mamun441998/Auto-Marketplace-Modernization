@@ -11,9 +11,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_images', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+    Schema::create('vehicle_images', function (Blueprint $table) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Identity
+    |--------------------------------------------------------------------------
+    */
+    $table->id();
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    */
+    $table->foreignId('vehicle_id')
+        ->constrained()
+        ->cascadeOnDelete();
+
+    /*
+    |--------------------------------------------------------------------------
+    | Image Information
+    |--------------------------------------------------------------------------
+    */
+    $table->string('image_path');
+    $table->string('aslt_text')->nullable();
+    $table->string('image_source')->nullable();
+    $table->boolean('is_featured')->default(false);
+    $table->unsignedInteger('sort_order')-default(0);
+
+    /*
+    |-----------------------------------------------------------------------------
+    | Status and Metadata
+    |-----------------------------------------------------------------------------
+    */
+    $table->timestamps();
         });
     }
 
