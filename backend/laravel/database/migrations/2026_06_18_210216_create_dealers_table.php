@@ -12,8 +12,47 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dealers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+
+        /*
+        |-----------------------------------------------------
+        | Identity
+        |---------------------------------------------------------
+        */
+        $table->id();
+        $table->uuid('uuid')->unique();
+
+        /*
+        |-----------------------------------------------------
+        | Dealer Information
+        |---------------------------------------------------------
+        */
+        $table->string('name');
+        $table->string('slug')->unique();
+        $table->string('email')->nullable()->unique();
+        $table->string('phone')->nullable();
+        $table->string('website')->nullable();
+        $table->text('address')->nullable();
+        $table->string('city')->nullable();
+        $table->string('country')->nullable();
+        $table->string('logo')->nullable();
+
+
+        /*
+        |-----------------------------------------------------
+        | Status
+        |---------------------------------------------------------
+        */
+        $table->boolean('is_active')->default(true);
+
+
+
+        /*
+        |-----------------------------------------------------  
+        |Status and Metadata
+        |---------------------------------------------------------
+        */
+        $table->timestamps();
+        $table->softDeletes();
         });
     }
 
