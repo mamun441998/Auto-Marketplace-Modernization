@@ -37,7 +37,7 @@ return new class extends Migration
     $table->string('aslt_text')->nullable();
     $table->string('image_source')->nullable();
     $table->boolean('is_featured')->default(false);
-    $table->unsignedInteger('sort_order')-default(0);
+    $table->unsignedInteger('sort_order')->default(0);
 
     /*
     |-----------------------------------------------------------------------------

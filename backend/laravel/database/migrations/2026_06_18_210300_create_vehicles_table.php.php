@@ -40,7 +40,7 @@ return new class extends Migration
             |---------------------------------------------------------
             */
             $table->decimal('price',12,2)->nullable();
-            $tablle->char('currency',3)->default('USD');
+            $table->char('currency',3)->default('USD');
 
                 
             /*
@@ -50,7 +50,7 @@ return new class extends Migration
             */
             $table->unsignedInteger('mileage')->nullable();
             $table->string('fuel_type')->nullable();
-            $table-->string('transmission')->nullable();
+            $table->string('transmission')->nullable();
             $table->string('condition')->nullable();
             $table->string('body_type')->nullable();
             $table->string('color')->nullable();
@@ -61,21 +61,21 @@ return new class extends Migration
             |---------------------------------------------------------
             */
             $table->foreignId('dealer_id')
-                ->nullable();
-                ->constrained('dealers');
+                ->nullable()
+                ->constrained('dealers')
                 ->nullOnDelete();
 
-            $table->foreignId('invenrory_soource_id')
-                ->nullable();
-                ->constrained()
-                ->nullOnDelete() 
+            $table->foreignId('inventory_source_id')
+                ->nullable()
+                ->constrained('inventory_sources')
+                ->nullOnDelete();
                 
             /*
             |-----------------------------------------------------  
             | Vehicle Status
             |---------------------------------------------------------
             */
-            $table->enum('status', ['draft', 'active', 'pending', 'sold'])->default('draft');
+            $table->enum('status', ['draft', 'active', 'pending', 'sold', 'archived'])->default('draft');
             $table->timestamp('published_at')->nullable();
             
             /*
