@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('model');
             $table->smallInteger('year');
 
+
             /*
             |-----------------------------------------------------  
             | Pricing and Availability
