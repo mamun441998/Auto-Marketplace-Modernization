@@ -3,25 +3,52 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use illuminate\Database\Eloquent\Factories\HasFactory;
-use illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class vehicle extends Model
+class Vehicle extends Model
 {
-    use HasFactory, softDeletes;
-        protected $fillable = [];
-        protected $casts = [];
+    use HasFactory, SoftDeletes;
+        protected $fillable = [
+            'uuid',
+            'slug',
+            'title',
+            'description',
+            'vin',
+            'make',
+            'model',
+            'year',
+            'price',
+            'currency',
+            'mileage',
+            'fuel_type',
+            'transmission',
+            'condition',
+            'body_type',
+            'color',
+            'dealer_id',
+            'inventory_source_id',
+            'status',
+            'published_at',
+        ];
+        protected $casts = [
+            'price' => 'decimal:2',
+            'published_at' => 'datetime',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+            'deleted_at' => 'datetime',
+        ];
 
-    // Relationships 
+    // Vehicle belongs to Dealer 
     public function dealer()
     {
-        return $this->belongs to (dealer::class);
+        return $this->belongsTo(Dealer::class);
     }
     // Vehicle belongs to InvontorySource
     public function inventorySource()
     {
-        return $this->belongsTo(InvenntorySource::class);
+        return $this->belongsTo(InventorySource::class);
 
     }
     // Vehicle has many images
@@ -30,8 +57,5 @@ class vehicle extends Model
         return $this->hasMany(VehicleImage::class);
     }
 
-    public function vehicle()
-    {
-        return $this->hasMany(Vehicle::class);
-    }
+  
 }
