@@ -18,6 +18,18 @@ class VehicleImageFactory extends Factory
     public function definition(): array
     {
         return [
+
+        'vehicle_id' => null,
+        'image_path' => fake()->imageUrl(),
+        'alt_text' => fake()->sentence(),
+        'is_featured' => fake()->boolean(),
+        'sort_order' => fake()->numberBetween(1, 10),
+
+        'image_source' => fake()->randomElement([
+            'AWS S3',
+            'CloudFront',
+            'Dealer Upload'
+        ]),
             //
         ];
     }

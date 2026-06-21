@@ -5,6 +5,10 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Dealer;
+use App\Models\InventorySource;
+use App\Models\Vehicle;
+use App\Models\VehicleImage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +19,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Create Dealers
+        Dealer::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Create Inventory Source
+        InventorySource::factory(5)->create();
+
+        // Create Vehicles
+        Vehicle::factory(100)->create()->each(function ($vehicle) {
+            // Assign Random Dealer
+            $vehicle->update([
+                'dealer_id' =>Dealer::inRandomOrder()->first()->id,
+                'inventory_source_id' =>InventorySource::inRandomOrder()->first()->id,
+            ]);
+
+            //Create Image for Vehicle
+            VehicleImage::factory(rand(2, 5))->create([
+                'vehicle_id' => $vehicle->id,
+            ]);
+        });
     }
 }

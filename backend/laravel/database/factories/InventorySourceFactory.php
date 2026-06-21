@@ -23,7 +23,7 @@ class InventorySourceFactory extends Factory
             'slug' => fake()->slug(),
             'type' => fake()->randomElement(['API', 'cvs', 'xml',]),
 
-            'base-url' => fake()->url(),
+            'base_url' => fake()->url(),
             'api_key' => fake()->sha1(),
             'api_secret' => fake()->sha1(),
             'sync_interval' => 60,
