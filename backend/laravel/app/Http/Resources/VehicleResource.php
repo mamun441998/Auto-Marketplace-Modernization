@@ -34,6 +34,14 @@ class VehicleResource extends JsonResource
             'status' => $this->status,
             'dealer' => $this->dealer?->name,
             'created_at' => $this->created_at,
+
+            'images' => $this->images->map(function ($image) {
+                return [
+                    'id' => $image->id,
+                    'image_path' => $image->image_path,
+                    'is_featured' => $image->featured,
+                ];
+            }),
         ];
        
     }
