@@ -1,3 +1,5 @@
+import Button from "@/components/ui/Button";
+
 async function getVehicle(id: string) {
     const res = await fetch(
         `http://127.0.0.1:8001/api/vehicles/${id}`,
@@ -16,6 +18,7 @@ export default async function VehicleDetails({
 }) {
     const { id } =await params;
     const vehicle = await getVehicle(id);
+    console.log(vehicle);
 
     return (
         <main className="max-w-4xl mx-auto p-8">

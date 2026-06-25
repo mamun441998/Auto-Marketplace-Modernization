@@ -5,29 +5,36 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
+use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $vehicles = Vehicle::with([
-            'dealer',
-            'inventorySource',
-            'images'
-        ])->latest()->paginate(20);
+        $query = Vehicle::with(['dealer', 'images']);
 
-        return VehicleResource::collection($vehicles);
+        if ($request->make) {
+            $query->where('make', $request->make);
+        }
+
+        if ($request->model) {
+            $query->where('model', $request->model);
+        }
+
+        if ($request->year) {
+            $query->where('year', $request->year);
+        }
+
+        return VehicleResource::collection(
+            $query->paginate(12)
+        );
     }
 
     public function show(Vehicle $vehicle)
+
     {
-        $vehicle->load([
-            'dealer',
-            'inventorySource',
-            'images'
-        ]);
-        
-        return new VehicleResource($vehicle);
+        return new VehicleResource(
+            $vehicle->load(['dealer', 'images'])
+        );
     }
-    
 }
