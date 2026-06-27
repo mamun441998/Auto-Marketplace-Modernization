@@ -30,6 +30,12 @@ export default async function VehicleDetails({
                 </h1>
             
 
+            <div className="mb-6">
+                <Button>
+                    Contact Dealer
+                </Button>
+            </div>
+
                 <div className="grid grid-cols-3 gap-4 mb-6">
                 {vehicle.data.images?.map((image: any) => (
                     <img
