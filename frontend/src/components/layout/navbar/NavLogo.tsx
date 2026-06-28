@@ -1,25 +1,25 @@
 import Link from "next/link";
-import { siteConfig } from "@/config/site";
 
 export default function NavLogo() {
-    return (
-        <Link
-        href="/"
-        className="flex items-center gap-2 transition-opacity hover:opacity-90">
+  return (
+    <Link
+      href="/"
+      className="flex items-center gap-4 shrink-0"
+      aria-label="MotoHave Home"
+    >
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-xl font-bold text-white shadow-md">
+        M
+      </div>
 
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-lg font-bold text-white">
-                M 
-            </div>
+      <div className="leading-tight">
+        <h1 className="text-[2rem] font-bold tracking-tight text-slate-900">
+          MotoHave
+        </h1>
 
-            <div className="flex flex-col leading-none">
-                <span className="text-xl font-bold tracking-tight text-slate-900">
-                    {siteConfig.name}
-                </span>
-
-                <span className="text-xs text-slate-500">
-                    Automotive SaaS Platform
-                </span>
-            </div>
-        </Link>
-    );
+        <p className="text-sm text-slate-500">
+          Automotive SaaS Platform
+        </p>
+      </div>
+    </Link>
+  );
 }

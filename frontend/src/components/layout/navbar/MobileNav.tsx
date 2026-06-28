@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { navigation } from "@/config/navigation";
+
 import Button from "@/components/ui/Button";
 import NavLink from "./NavLink";
 
@@ -17,29 +18,30 @@ export default function MobileNav({
   onClose,
 }: MobileNavProps) {
   return (
-    <AnimatePresence initial={false}>
+    <AnimatePresence>
       {open && (
         <motion.div
           initial={{
             opacity: 0,
-            height: 0,
+            y: -20,
           }}
           animate={{
             opacity: 1,
-            height: "auto",
+            y: 0,
           }}
           exit={{
             opacity: 0,
-            height: 0,
+            y: -20,
           }}
           transition={{
             duration: 0.25,
-            ease: "easeInOut",
           }}
-          className="overflow-hidden border-t border-slate-200 bg-white lg:hidden"
+          className="border-t border-slate-200 bg-white lg:hidden"
         >
-          <div className="flex flex-col px-4 py-6">
-            <div className="flex flex-col gap-5">
+          <div className="px-6 py-6">
+
+            <div className="flex flex-col gap-6">
+
               {navigation.map((item) => (
                 <NavLink
                   key={item.href}
@@ -49,12 +51,15 @@ export default function MobileNav({
                   {item.label}
                 </NavLink>
               ))}
+
             </div>
 
-            <div className="mt-8 flex flex-col gap-3">
+            <div className="mt-8 space-y-4">
+
               <Link
                 href="/login"
                 onClick={onClose}
+                className="block"
               >
                 <Button
                   variant="outline"
@@ -67,12 +72,15 @@ export default function MobileNav({
               <Link
                 href="/register"
                 onClick={onClose}
+                className="block"
               >
                 <Button className="w-full">
                   Get Started
                 </Button>
               </Link>
+
             </div>
+
           </div>
         </motion.div>
       )}

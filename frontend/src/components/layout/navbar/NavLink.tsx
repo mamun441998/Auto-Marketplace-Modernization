@@ -5,33 +5,38 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 type NavLinkProps = {
-    href: string;
-    children: React.ReactNode;
-    onClick?: () => void;
+  href: string;
+  children: React.ReactNode;
+  onClick?: () => void;
 };
 
 export default function NavLink({
-    href,
-    children,
-    onClick,
+  href,
+  children,
+  onClick,
 }: NavLinkProps) {
-    const pathname = usePathname();
+  const pathname = usePathname();
 
-    const isActive = pathname === href;
+  const active = pathname === href;
 
-    return (
-        <Link 
-            href={href}
-            onClick={onClick}
-            className={clsx(
-                "transition-colors duration-200 font-medium",
-                isActive
-                ? "text-blue-600"
-                : "text-slate-600 hover:text-blue-600"
-            )}
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={clsx(
+        "relative font-medium transition-colors duration-200",
+        "text-slate-700 hover:text-blue-600",
+        active && "text-blue-600"
+      )}
+    >
+      {children}
 
-            >
-                {children}
-            </Link>
-    );
+      <span
+        className={clsx(
+          "absolute -bottom-2 left-0 h-0.5 bg-blue-600 transition-all duration-300",
+          active ? "w-full" : "w-0 group-hover:w-full"
+        )}
+      />
+    </Link>
+  );
 }

@@ -1,44 +1,44 @@
+"use client";
+
 import { Menu, X } from "lucide-react";
 
 type MobileMenuProps = {
-    open: boolean;
-    onToggle: () => void;
+  open: boolean;
+  onToggle: () => void;
 };
 
 export default function MobileMenu({
-    open,
-    onToggle,
-
+  open,
+  onToggle,
 }: MobileMenuProps) {
-
-    return (
-        <button
-        type="button"
-        onClick={onToggle}
-        aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-        aria-expanded={open}
-        className="
-        flex
-        h-10
-        w-10
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label="Toggle Menu"
+      aria-expanded={open}
+      className="
+        inline-flex
+        h-12
+        w-12
         items-center
         justify-center
-        rounded-lg
+        rounded-xl
         border
-        border-slate-300
-        transition-colors
-        hover:bg-slate-100
+        border-slate-200
+        bg-white
+        text-slate-700
+        shadow-sm
+        transition-all
+        hover:bg-slate-50
         lg:hidden
-        
-        "
-        >
-           {open ? (
-            <X className="h-5 w-5" />
-           ) : (
-            <Menu className="h-5 w-5" />
-           
-           )}
-
-        </button>
-);
+      "
+    >
+      {open ? (
+        <X className="h-6 w-6" />
+      ) : (
+        <Menu className="h-6 w-6" />
+      )}
+    </button>
+  );
 }

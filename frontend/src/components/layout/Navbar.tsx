@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 import Container from "./Container";
+
 import NavLogo from "./navbar/NavLogo";
 import NavMenu from "./navbar/NavMenu";
 import NavAction from "./navbar/NavAction";
@@ -19,7 +20,7 @@ export default function Navbar() {
   // Navbar shadow on scroll
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 8);
     };
 
     handleScroll();
@@ -31,52 +32,46 @@ export default function Navbar() {
     };
   }, []);
 
-  // Close mobile menu when clicking outside
+  // Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleOutside = (e: MouseEvent) => {
       if (
         navRef.current &&
-        !navRef.current.contains(event.target as Node)
+        !navRef.current.contains(e.target as Node)
       ) {
         setOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleOutside);
 
-    return () => {
+    return () =>
       document.removeEventListener(
         "mousedown",
-        handleClickOutside
+        handleOutside
       );
-    };
   }, []);
 
-  // Close mobile menu on ESC key
+  // ESC close
   useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
         setOpen(false);
       }
     };
 
     document.addEventListener("keydown", handleEscape);
 
-    return () => {
+    return () =>
       document.removeEventListener(
         "keydown",
         handleEscape
       );
-    };
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = open ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
@@ -86,20 +81,22 @@ export default function Navbar() {
   return (
     <header
       className={clsx(
-        "sticky top-0 z-50 border-b border-slate-200 backdrop-blur-lg transition-all duration-300",
+        "sticky top-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "bg-white/95 shadow-md"
-          : "bg-white/90"
+          ? "border-slate-200 bg-white/95 shadow-sm backdrop-blur-xl"
+          : "border-transparent bg-white/90 backdrop-blur-xl"
       )}
     >
       <Container>
         <div ref={navRef}>
+
           <div className="flex h-20 items-center justify-between">
+
             <NavLogo />
 
             <NavMenu />
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <NavAction />
 
               <MobileMenu
@@ -107,12 +104,14 @@ export default function Navbar() {
                 onToggle={() => setOpen(!open)}
               />
             </div>
+
           </div>
 
           <MobileNav
             open={open}
             onClose={() => setOpen(false)}
           />
+
         </div>
       </Container>
     </header>
