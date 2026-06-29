@@ -83,15 +83,13 @@ export default function Navbar() {
       className={clsx(
         "sticky top-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "border-slate-200 bg-white/95 shadow-sm backdrop-blur-xl"
+          ? "border-blue-700 bg-white/95 shadow-sm backdrop-blur-xl" // এখানে গাঢ় নীল বর্ডার দেওয়া হয়েছে
           : "border-transparent bg-white/90 backdrop-blur-xl"
       )}
     >
       <Container>
         <div ref={navRef}>
-
           <div className="flex h-20 items-center justify-between">
-
             <NavLogo />
 
             <NavMenu />
@@ -104,14 +102,12 @@ export default function Navbar() {
                 onToggle={() => setOpen(!open)}
               />
             </div>
-
           </div>
 
           <MobileNav
             open={open}
             onClose={() => setOpen(false)}
           />
-
         </div>
       </Container>
     </header>
